@@ -1,4 +1,3 @@
-
 #----------------------DISPONIBILIZADAS PELO PROF. MÁRCIO ------------------------------
 
 #OBS1: tabela sem header
