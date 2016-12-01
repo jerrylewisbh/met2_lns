@@ -4,9 +4,9 @@
 
 #importa e executa o arquivo functions.r automaticamente
 script.dir <- dirname(sys.frame(1)$ofile)
-if(!exists("function_read_fixed_param_file", mode="function")) source(paste(script.dir, "/utils.r",  sep = ""));
-if(!exists("generateMQComparativeTable", mode="function")) source(paste(script.dir, "/MQComparative.r",  sep = ""));
-if(!exists("comperaByInstanceGroupSize", mode="function")) source(paste(script.dir, "/LNS_CMS_Comparative.r",  sep = ""));
+source(paste(script.dir, "/utils.r",  sep = ""));
+source(paste(script.dir, "/MQComparative.r",  sep = ""));
+source(paste(script.dir, "/LNS_CMS_Comparative.r",  sep = ""));
 
 
 #-----------------------Tabela 4.4------------------------
@@ -24,8 +24,8 @@ dir <- "/data/PARAM_01_INITIAL_SOLUTION_METHOD/data/";
  
 
 #-----------------------EXECUTA TABELAS de 4.4 até 4.7------------------------
-#table <- generateMQComparativeTable(paste(script.dir, dir,  sep = ""));
-#View(table);
+table <- generateMQComparativeTable(paste(script.dir, dir,  sep = ""));
+View(table);
 
 
 #-----------------------EXECUTA TABELAS de 4.16 até 4.19------------------------
@@ -33,7 +33,9 @@ dir <- "/data/PARAM_01_INITIAL_SOLUTION_METHOD/data/";
 INSTANCE_SIZE <- list(SMALL = 1, MEDIUM = 2, LARGE = 3, EXTRA_LARGE = 4);
 
 file <- "/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
-#table = compareByInstanceGroupSize(paste(script.dir, file,  sep = ""), INSTANCE_SIZE$EXTRA_LARGE);
+#table = compareByInstanceGroupSize(paste(script.dir, file,  sep = ""), INSTANCE_SIZE$SMALL);
 
-table = compareExecutionTime(paste(script.dir, file,  sep = ""));
-View(table);
+
+#-----------------------EXECUTA A TABELA de 4.20------------------------
+#table = compareExecutionTime(paste(script.dir, file,  sep = ""));
+#View(table);
