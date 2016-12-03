@@ -124,11 +124,17 @@ compareTimeByInstanceGroupSize <- function(instanceFile, moduleFile){
   LNS_data <- subset(table, table$SOLVER == "LNS");
   
   
-  colNames <- c("INSTANCE", "MEDIA_TIME_LNS", "MEDIA_TIME_ILS", "MODULO", "GROUP");
+  colNames <- c("GROUP", "MEDIA_TIME_LNS", "MEDIA_TIME_ILS", "MODULO");
   instancesNames <- unique(ILS_data$INSTANCE);
   rows <- 1:length(instancesNames);
-  comparativeTable <- matrix(nrow = length(rows), ncol = length(colNames), dimnames = list(rows, colNames));
+  comparativeTable <- matrix(nrow = length(rows), ncol = length(colNames), dimnames = list(instancesNames, colNames));
   
+  for(i in rows){
+    for(j in 1:length(colNames)){
+      comparativeTable[i, j]  = 0;
+    }
+  }
+  comparativeTable = data.frame(comparativeTable);
   
   currentRow <- 1;
   
@@ -143,11 +149,11 @@ compareTimeByInstanceGroupSize <- function(instanceFile, moduleFile){
     
     module = subset(tableModule, tableModule$INSTANCE == currentInstance);
 
-    comparativeTable[currentRow, 1] <- currentInstance;
-    comparativeTable[currentRow, 2] <- paste(LNSMean, sep='');
-    comparativeTable[currentRow, 3] <- paste(ILSMean, sep='');
+
+    comparativeTable[currentRow, 1] <- unique(currentInstanceLNSValues$GROUP);
+    comparativeTable[currentRow, 2] <- paste(round((mean(LNSMean) / 1000), digits = 4), sep='');
+    comparativeTable[currentRow, 3] <- paste(round((mean(ILSMean) / 1000), digits = 4), sep='');
     comparativeTable[currentRow, 4] <- module$MODULES_pre;
-    comparativeTable[currentRow, 5] <- unique(currentInstanceLNSValues$GROUP);
     
     currentRow <- currentRow + 1;
   }
