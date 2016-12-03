@@ -43,8 +43,12 @@ source(paste(script.dir, "/GRAF_Time.r",  sep = ""));
 
 
 #-----------------------EXECUTA GRAFICO  de 4.8------------------------
-INSTANCE_SIZE <- list(SMALL = 1, MEDIUM = 2, LARGE = 3, EXTRA_LARGE = 4);
+ils_lns_data <- "/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
+instances_module_data <- "/data/INSTANCIAS/instances_module_dep.dat";
 
-file <- "/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
-grafico = compareExecutionTimeGraf(paste(script.dir, file,  sep = ""), INSTANCE_SIZE$SMALL);
+tabela = compareTimeByInstanceGroupSize(paste(script.dir, ils_lns_data,  sep = ""), instances_module_data);
+grafico = GraphByCategory(tabela);
 
+#-----------------------EXECUTA GRAFICO  de 4.9 e 4.10------------------------
+#GraphBoxplot(ils_lns_data, "TIME");
+#GraphBoxplot(ils_lns_data, "MQ");
