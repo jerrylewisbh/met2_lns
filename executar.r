@@ -7,10 +7,11 @@ script.dir <- dirname(sys.frame(1)$ofile)
 source(paste(script.dir, "/utils.r",  sep = ""));
 source(paste(script.dir, "/MQComparative.r",  sep = ""));
 source(paste(script.dir, "/LNS_CMS_Comparative.r",  sep = ""));
+source(paste(script.dir, "/GRAF_Time.r",  sep = ""));
 
 
 #-----------------------Tabela 4.4------------------------
-dir <- "/data/PARAM_01_INITIAL_SOLUTION_METHOD/data/";
+#dir <- "/data/PARAM_01_INITIAL_SOLUTION_METHOD/data/";
 
 #-----------------------Tabela 4.5------------------------
 #dir = "/data/PARAM_02_REPAIR_METHOD/data/";
@@ -24,18 +25,26 @@ dir <- "/data/PARAM_01_INITIAL_SOLUTION_METHOD/data/";
  
 
 #-----------------------EXECUTA TABELAS de 4.4 até 4.7------------------------
-table <- generateMQComparativeTable(paste(script.dir, dir,  sep = ""));
-View(table);
+#table <- generateMQComparativeTable(paste(script.dir, dir,  sep = ""));
+#View(table);
 
 
 #-----------------------EXECUTA TABELAS de 4.16 até 4.19------------------------
 
-INSTANCE_SIZE <- list(SMALL = 1, MEDIUM = 2, LARGE = 3, EXTRA_LARGE = 4);
+#INSTANCE_SIZE <- list(SMALL = 1, MEDIUM = 2, LARGE = 3, EXTRA_LARGE = 4);
 
-file <- "/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
+#file <- "/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
 #table = compareByInstanceGroupSize(paste(script.dir, file,  sep = ""), INSTANCE_SIZE$SMALL);
 
 
 #-----------------------EXECUTA A TABELA de 4.20------------------------
 #table = compareExecutionTime(paste(script.dir, file,  sep = ""));
 #View(table);
+
+
+#-----------------------EXECUTA GRAFICO  de 4.8------------------------
+INSTANCE_SIZE <- list(SMALL = 1, MEDIUM = 2, LARGE = 3, EXTRA_LARGE = 4);
+
+file <- "/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
+grafico = compareExecutionTimeGraf(paste(script.dir, file,  sep = ""), INSTANCE_SIZE$SMALL);
+

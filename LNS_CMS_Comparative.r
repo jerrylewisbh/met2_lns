@@ -1,5 +1,3 @@
-
-
 compareByInstanceGroupSize <- function(file, instanceSize){
 
 table <- read.table(file, header = TRUE, sep = ";");
@@ -113,4 +111,46 @@ compareExecutionTime <-function(file){
   return (comparativeTable);
 
 
+}
+
+
+compareTimeByInstanceGroupSize <- function(instanceFile, moduleFile){
+  
+  table <- read.table(instanceFile, header = TRUE, sep = ";");
+  
+  tableModule <- read.table(moduleFile, header = TRUE, sep = ";");
+  
+  ILS_data <- subset(table, table$SOLVER == "ILS");
+  LNS_data <- subset(table, table$SOLVER == "LNS");
+  
+  
+  colNames <- c("INSTANCE", "MEDIA_TIME_LNS", "MEDIA_TIME_ILS", "MODULO", "GROUP");
+  instancesNames <- unique(ILS_data$INSTANCE);
+  rows <- 1:length(instancesNames);
+  comparativeTable <- matrix(nrow = length(rows), ncol = length(colNames), dimnames = list(rows, colNames));
+  
+  
+  currentRow <- 1;
+  
+  for(currentInstance in instancesNames){
+    
+    currentInstanceLNSValues = subset(LNS_data, LNS_data$INSTANCE == currentInstance);
+    currentInstanceILSValues = subset(ILS_data, ILS_data$INSTANCE == currentInstance);
+    
+    LNSMean = mean(currentInstanceLNSValues$TIME);
+    
+    ILSMean = mean(currentInstanceILSValues$TIME);
+    
+    module = subset(tableModule, tableModule$INSTANCE == currentInstance);
+
+    comparativeTable[currentRow, 1] <- currentInstance;
+    comparativeTable[currentRow, 2] <- paste(LNSMean, sep='');
+    comparativeTable[currentRow, 3] <- paste(ILSMean, sep='');
+    comparativeTable[currentRow, 4] <- module$MODULES_pre;
+    comparativeTable[currentRow, 5] <- unique(currentInstanceLNSValues$GROUP);
+    
+    currentRow <- currentRow + 1;
+  }
+  return (comparativeTable);
+  
 }
