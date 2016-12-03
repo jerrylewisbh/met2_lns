@@ -7,7 +7,7 @@ script.dir <- dirname(sys.frame(1)$ofile)
 source(paste(script.dir, "/utils.r",  sep = ""));
 source(paste(script.dir, "/MQComparative.r",  sep = ""));
 source(paste(script.dir, "/LNS_CMS_Comparative.r",  sep = ""));
-source(paste(script.dir, "/GRAF_Time.r",  sep = ""));
+
 
 
 #-----------------------Tabela 4.4------------------------
@@ -43,10 +43,10 @@ source(paste(script.dir, "/GRAF_Time.r",  sep = ""));
 
 
 #-----------------------EXECUTA GRAFICO  de 4.8------------------------
-ils_lns_data <- "/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
-instances_module_data <- "/data/INSTANCIAS/instances_module_dep.dat";
+ils_lns_data <- paste(script.dir, "/data/FINAL_ILS_x_LNS/ils_lns_data.dat",  sep = "");
+instances_module_data <-  paste(script.dir, "/data/INSTANCIAS/instances_module_dep.dat", sep = "")
 
-tabela = compareTimeByInstanceGroupSize(paste(script.dir, ils_lns_data,  sep = ""), instances_module_data);
+tabela = compareTimeByInstanceGroupSize( ils_lns_data,  instances_module_data);
 grafico = GraphByCategory(tabela);
 
 #-----------------------EXECUTA GRAFICO  de 4.9 e 4.10------------------------
