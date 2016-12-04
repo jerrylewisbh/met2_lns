@@ -9,7 +9,6 @@ source(paste(script.dir, "/MQComparative.r",  sep = ""));
 source(paste(script.dir, "/LNS_CMS_Comparative.r",  sep = ""));
 
 
-
 #-----------------------Tabela 4.4------------------------
 #dir <- "/data/PARAM_01_INITIAL_SOLUTION_METHOD/data/";
 
