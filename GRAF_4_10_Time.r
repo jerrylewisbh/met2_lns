@@ -1,8 +1,8 @@
 ils_lns_data <- "/Users/CrystiamKelle/Documents/GitHub/met2_lns/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
 tableILS_LNS <- read.table(ils_lns_data, header = TRUE, sep = ";");
 
-#GraphBoxplot(ils_lns_data, "TIME");
-GraphBoxplot(ils_lns_data, "MQ");
+GraphBoxplot(ils_lns_data, "TIME");
+#GraphBoxplot(ils_lns_data, "MQ");
 
 #instanciasList <- list( "lslayout", "seemp", "imapd-1", "elm-1", "exim", "lucent", "dom4j", "pfcda_swing",
 #                 "jtreeview", "lwjgl-2.8.4", "krb5", "eclipse_jgit");
