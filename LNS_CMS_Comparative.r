@@ -201,10 +201,8 @@ GraphByCategory <- function(tabela){
     points(linha$MODULO, linha$MEDIA_TIME_ILS, col="red", pch=4, cex = 0.8)
     
   }
-  #par(xpd=TRUE)
-  #legend(x="center", ncol=3,legend=c("0-1 km","1-5 km","outside barrier"),
-         #fill=c("green","orange","red"), title="Fetch")
-  legend('topright', c("LNS","ILS"), col=c("darkblue", "red"), pch=3:4, bty ="n", cex = 0.7,  lty=1:9)
+  
+  legend('bottom', c("LNS","ILS"), col=c("darkblue", "red"), pch=3:4, bty ="n", cex = 0.7)
 }
 
 
