@@ -163,58 +163,53 @@ compareTimeByInstanceGroupSize <- function(instanceFile, moduleFile){
 
 GraphByCategory <- function(tabela){
   par(mfrow=c(2,2))
-  for(i in 1:4){ 
-    
-    modulos = 0:0;
-    step = 0;
-    ticks = c();
-    titulo = "";
-    if(i == 1){
-      modulos = 0:74;
-      mult = 0.1;
-      step = 10;
-      titulo = "Categoria Pequena";
-    }else if(i == 2){
-      modulos = 79:182;
-      mult = 0.5;
-      step = 20;
-      titulo = "Categoria M?dia";
-    }else if(i == 3){
-      modulos = 190:377;
-      mult = 5;
-      step = 50;
-      titulo = "Categoria Grande";
-    }else{
-      modulos = 400:1400;
-      mult = 500;
-      step = 200;
-      titulo = "Categoria Muito Grande";
-    }
+  
+  groupCod <- c(unique(tabela$GROUP));
+  
+  #parametros para a geração dos gráficos
+  title <- c("Categoria Pequena", " Categoria Média", "Categoria Grande", "Categoria Muito Grande");
+  axisX <- c(10, 20, 50, 200);
+  mult <- c(0.1, 0.5, 5,500);
+  
+  for(i in 1:length(groupCod)){ 
+    axisY = c();
     
     cont = 0;
     for (t in 0:5){
-      ticks = append(ticks, (t*mult));
+      axisY = append(axisY, (t*mult[i]));
       cont = cont + 1;
     }
     
+    
     linha = subset(tabela, tabela$GROUP == i);
     
-    xrange <- range(modulos);
-    yrange <- range(ticks);
+    a <- min(linha$MODULO);
+    b <- max(linha$MODULO);
     
-    plot(xrange, yrange, type="n", xlab="Qtde. Modulos", ylab="Tempo(s)", axes = FALSE, ann = TRUE, main = titulo);
+    xrange <- range(a:b);
+    yrange <- range(axisY);
+    
+    plot(xrange, yrange, type="n", xlab="Quantidade de Módulos", ylab="Tempo(s)", yaxs="r", axes = FALSE, ann = TRUE, main = title[i]);
     
     box();
-    axis(1, at = step*0:xrange[2])
-    axis(2, at = ticks)
+    axis(1, at = axisX[i]*0:xrange[2])
+    axis(2, at = axisY)
+    
+    par("usr")
     
     points(linha$MODULO, linha$MEDIA_TIME_LNS, col="darkblue", pch=3, cex = 0.8)
     points(linha$MODULO, linha$MEDIA_TIME_ILS, col="red", pch=4, cex = 0.8)
+    
   }
-  
-  legend('topright', c("Antes da Redu??o","Depois da Redu??o"), col=c("darkblue", "red"), pch=3:4, bty ="n", cex = 0.7)
+  #par(xpd=TRUE)
+  #legend(x="center", ncol=3,legend=c("0-1 km","1-5 km","outside barrier"),
+         #fill=c("green","orange","red"), title="Fetch")
+  legend('topright', c("LNS","ILS"), col=c("darkblue", "red"), pch=3:4, bty ="n", cex = 0.7,  lty=1:9)
 }
 
+
+
+#------------------------------------------GraphBoxplot - INICIO -----------------------------------------------
 GraphBoxplot <- function(instanceFile, parametro){
   tableILS_LNS <- read.table(instanceFile, header = TRUE, sep = ";");
   instanciasList <- list( "lslayout", "seemp", "imapd-1", "elm-1", "exim", "lucent", "dom4j", "pfcda_swing",
@@ -235,6 +230,8 @@ GraphBoxplot <- function(instanceFile, parametro){
     }
     
     ins <- tab$SOLVER;
-    boxplot(pm~ins, main = currentInstance);
+    boxplot(pm~ins, main = currentInstance, varwidth=TRUE);
+    title(ylab = "Value axis", xlab = "Single sample", font.lab = 2)
   }
 }
+#------------------------------------------GraphBoxplot - FIM -----------------------------------------------
