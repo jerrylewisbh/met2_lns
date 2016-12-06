@@ -41,14 +41,12 @@ generateMQComparativeTable <- function(dir) {
   }
   
   for (param in labels) {
-    timeExec <-mean(subset(tableData, tableData$PARAM_VALUE == param) $TIME) / 1000;
+    timeExec <-mean(subset(tableData, tableData$PARAM_VALUE == param)$TIME) / 1000;
     MQ_scores[param, 2] = round(timeExec, digits = 4);
     
     percVal <-(MQ_scores[param, 1] * 100) / sum(MQ_scores[, 1]);
     MQ_scores[param, 3] = round(percVal, digits = 2);
     
   }
-  
   return (MQ_scores);
-  
 }

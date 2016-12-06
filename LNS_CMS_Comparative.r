@@ -1,6 +1,4 @@
-
-
-#--------------------------------------------------
+#----------------------------FUN«√O TABELAS de 4.16 at√© 4.19----------------------
 compareByInstanceGroupSize <- function(file, instanceSize){
 
 table <- read.table(file, header = TRUE, sep = ";");
@@ -58,7 +56,8 @@ return (comparativeTable);
  
 }
 
-#--------------------------------------------------
+
+#----------------------------FUN«√O TABELAS de 4.20----------------------
 compareExecutionTime <-function(file){
   
   table <- read.table(file, header = TRUE, sep = ";");
@@ -116,7 +115,8 @@ compareExecutionTime <-function(file){
 
 }
 
-#--------------------------------------------------
+
+#-----------------------EXECUTA GRAFICO  de 4.8------------------------
 compareTimeByInstanceGroupSize <- function(instanceFile, moduleFile){
   
   table <- read.table(instanceFile, header = TRUE, sep = ";");
@@ -164,8 +164,10 @@ compareTimeByInstanceGroupSize <- function(instanceFile, moduleFile){
   
 }
 
-#--------------------------------------------------
+#----------------------------GR¡FICO VARIA«√O DE TEMPO LNS X ILS----------------------------
 GraphByCategory <- function(tabela){
+  PDFPath <- "/Users/CrystiamKelle/Documents/GitHub/met2_lns/GraphByCategory3.pdf";
+  pdf(file=PDFPath);
   par(mfrow=c(2,2))
   
   groupCod <- c(unique(tabela$GROUP));
@@ -174,6 +176,8 @@ GraphByCategory <- function(tabela){
   title <- c("Categoria Pequena", " Categoria MÈdia", "Categoria Grande", "Categoria Muito Grande");
   axisX <- c(10, 20, 50, 200);
   mult <- c(0.1, 0.5, 5,500);
+  
+ 
   
   for(i in 1:length(groupCod)){ 
     axisY = c();
@@ -193,7 +197,7 @@ GraphByCategory <- function(tabela){
     xrange <- range(a:b);
     yrange <- range(axisY);
     
-    plot(xrange, yrange, type="n", xlab="Quantidade de MÛdulos", ylab="Tempo(s)", yaxs="r", axes = FALSE, ann = TRUE, main = title[i]);
+    plot(xrange, yrange, type="n", xlab="Quantidade de MÛdulos", ylab="Tempo(s)", yaxs="r", axes = TRUE, ann = TRUE, main = title[i]);
     
     box();
     axis(1, at = axisX[i]*0:xrange[2])
@@ -205,8 +209,9 @@ GraphByCategory <- function(tabela){
     points(linha$MODULO, linha$MEDIA_TIME_ILS, col="red", pch=4, cex = 0.8)
     
   }
-  
-  legend('bottom', c("LNS","ILS"), col=c("darkblue", "red"), pch=3:4, bty ="n", cex = 0.7)
+  #par(mar=c(3, 3, 3, 3))
+  #legend('bottom', c("LNS","ILS"), col=c("darkblue", "red"), pch=3:4, bty ="n", cex = 0.7)
+  dev.off()
 }
 
 
@@ -216,24 +221,31 @@ GraphBoxplot <- function(instanceFile, parametro){
   tableILS_LNS <- read.table(instanceFile, header = TRUE, sep = ";");
   instanciasList <- list( "lslayout", "seemp", "imapd-1", "elm-1", "exim", "lucent", "dom4j", "pfcda_swing",
                           "jtreeview", "lwjgl-2.8.4", "krb5", "eclipse_jgit");
-  
-  
-  x = c();
+
+  PDFPath <- "/Users/CrystiamKelle/Documents/GitHub/met2_lns/";
+  PDFPathComplete<-paste(PDFPath, parametro, sep="");
+  PDFPathExt <- paste(PDFPathComplete, ".pdf", sep="");
+  pdf(file=PDFPathExt);
   par(mfrow=c(4,3))
-  par(mar=c(1,1,1,1))
+  par(mar=c(2,4,2,1))
   
+  
+
   for(currentInstance in instanciasList){
     tab = subset(tableILS_LNS, tableILS_LNS$INSTANCE == currentInstance);
     if(parametro == "TIME"){
       pm <- tab$TIME / 1000;
+      title <- "Tempo(s)";
     }
     if(parametro == "MQ"){
       pm <- tab$MQ;
+      title <- "MQ";
     }
     
     ins <- tab$SOLVER;
-    boxplot(pm~ins, main = currentInstance, varwidth=TRUE);
-    title(ylab = "Value axis", xlab = "Single sample", font.lab = 2)
+
+    boxplot(pm~ins, ylab = title, main = currentInstance, varwidth=TRUE);
   }
+  dev.off()
 }
 #------------------------------------------GraphBoxplot - FIM -----------------------------------------------
