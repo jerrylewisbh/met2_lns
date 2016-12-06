@@ -1,3 +1,6 @@
+
+
+#--------------------------------------------------
 compareByInstanceGroupSize <- function(file, instanceSize){
 
 table <- read.table(file, header = TRUE, sep = ";");
@@ -33,19 +36,19 @@ for(currentInstance in instancesNames){
   if(is.nan(wilcoxonTest$p.value)){
     pValue = "-";
   }else if(wilcoxonTest$p.value > 0.001){
-    pValue =  wilcoxonTest$p.value;
+    pValue =  round(wilcoxonTest$p.value, digits = 4);
   }else{
     pValue = "< 0.001";
   }
   
   effect_size = vargha.delaney(currentInstanceLNSValues$MQ, currentInstanceILSValues$MQ) * 100;
-  #effect_size = paste(round(a12, digits = 0), "%", sep = "");
+  effect_size = paste(round(effect_size, digits = 0), "%", sep = "");
   
   comparativeTable[currentRow, 1] <- currentInstance;
-  comparativeTable[currentRow, 2] <- paste(LNSMean, '±', LNSSd, sep='');
-  comparativeTable[currentRow, 3] <- paste(ILSMean, '±', ILSSd, sep='');
+  comparativeTable[currentRow, 2] <- paste(round(LNSMean, digits = 4), '±', round(LNSSd, digits = 2), sep='');
+  comparativeTable[currentRow, 3] <- paste(round(ILSMean, digits = 4), '±', round(ILSSd, digits = 2), sep='');
   comparativeTable[currentRow, 4] <- pValue;
-  comparativeTable[currentRow, 5] <- paste(effect_size, '%', sep=''); 
+  comparativeTable[currentRow, 5] <- effect_size;
   
   currentRow <- currentRow + 1;
 }
@@ -55,7 +58,7 @@ return (comparativeTable);
  
 }
 
-
+#--------------------------------------------------
 compareExecutionTime <-function(file){
   
   table <- read.table(file, header = TRUE, sep = ";");
@@ -113,7 +116,7 @@ compareExecutionTime <-function(file){
 
 }
 
-
+#--------------------------------------------------
 compareTimeByInstanceGroupSize <- function(instanceFile, moduleFile){
   
   table <- read.table(instanceFile, header = TRUE, sep = ";");
@@ -161,6 +164,7 @@ compareTimeByInstanceGroupSize <- function(instanceFile, moduleFile){
   
 }
 
+#--------------------------------------------------
 GraphByCategory <- function(tabela){
   par(mfrow=c(2,2))
   
@@ -175,7 +179,7 @@ GraphByCategory <- function(tabela){
     axisY = c();
     
     cont = 0;
-    for (t in 0:5){
+    for (t in 0:4){
       axisY = append(axisY, (t*mult[i]));
       cont = cont + 1;
     }

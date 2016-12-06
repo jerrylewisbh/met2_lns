@@ -15,30 +15,29 @@ dir <- "/Users/CrystiamKelle/Documents/GitHub/met2_lns/data/PARAM_01_INITIAL_SOL
 
 
 #-----------------------EXECUTA TABELAS de 4.4 até 4.7------------------------
-#table <- generateMQComparativeTable(paste(script.dir, dir,  sep = ""));
-#View(table);
+table <- generateMQComparativeTable(dir);
+View(table);
 
 
 #-----------------------EXECUTA TABELAS de 4.16 até 4.19------------------------
-
 #INSTANCE_SIZE <- list(SMALL = 1, MEDIUM = 2, LARGE = 3, EXTRA_LARGE = 4);
 
-#file <- "/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
-#table = compareByInstanceGroupSize(paste(script.dir, file,  sep = ""), INSTANCE_SIZE$SMALL);
-
+file <- "/Users/CrystiamKelle/Documents/GitHub/met2_lns/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
+#table = compareByInstanceGroupSize(file, INSTANCE_SIZE$EXTRA_LARGE);
+#View(table);
 
 #-----------------------EXECUTA A TABELA de 4.20------------------------
-#table = compareExecutionTime(paste(script.dir, file,  sep = ""));
+#table = compareExecutionTime(file);
 #View(table);
 
 
 #-----------------------EXECUTA GRAFICO  de 4.8------------------------
-ils_lns_data <- "/Users/CrystiamKelle/Documents/GitHub/met2_lns/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
-instances_module_data <- "/Users/CrystiamKelle/Documents/GitHub/met2_lns/data/INSTANCIAS/instances_module_dep.dat";
+#ils_lns_data <- "/Users/CrystiamKelle/Documents/GitHub/met2_lns/data/FINAL_ILS_x_LNS/ils_lns_data.dat";
+#instances_module_data <- "/Users/CrystiamKelle/Documents/GitHub/met2_lns/data/INSTANCIAS/instances_module_dep.dat";
 
-tabela = compareTimeByInstanceGroupSize(ils_lns_data,  instances_module_data);
-View(tabela);
-grafico = GraphByCategory(tabela);
+#tabela = compareTimeByInstanceGroupSize(ils_lns_data,  instances_module_data);
+#View(tabela);
+#grafico = GraphByCategory(tabela);
 
 #-----------------------EXECUTA GRAFICO  de 4.9 e 4.10------------------------
 #GraphBoxplot(ils_lns_data, "TIME");
